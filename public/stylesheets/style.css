@@ -6,25 +6,43 @@ body {
 }
 
 a {
-  color: #00b7ff;
+  color: #ffbb00;
 }
 
-.col-sm-6 {
+.task_date {
   background-color: white; 
   margin-bottom: 10px; 
   padding: 5px;
   font-size: 16px;
 }
 
-.col-sm-2 {
-  background-color: white; 
-  margin-bottom: 10px; 
-  padding: 5px;
+.task_title {
+  border-left: outset 15px #ffbb00;
+  background-color: white;
+  margin-bottom: 10px;
+  padding-right: 250px;
+  padding-top: 5px;
   font-size: 16px;
 }
 
 .btn { 
   margin-bottom: 10px; 
   padding: 5px;
-  font-size: 14px;
+  font-size: 16px;
+}
+
+.btn_up {
+  margin-bottom: 10px; 
+  padding: 5px;
+  font-size: 16px;
+  background-color: #90b7ff;
+  border: solid #90b7ff;
+}
+
+.btn_dlt {
+  margin-bottom: 10px; 
+  padding: 5px;
+  font-size: 16px;
+  background-color: #ff9090;
+  border: solid #ff9090;
 }

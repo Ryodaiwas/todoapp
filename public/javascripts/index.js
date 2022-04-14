@@ -11,6 +11,21 @@ const httpGet = async function (url) {
 };
 
 // 登録用API実行メソッド
+$("#create-task").on("click", async function() {
+  const requestData = {
+    taskName: $("#create-form input[name=task]").val(),
+    deadline: $("#create-form input[name=deadline]").val(),
+    category: $("#create-form select[name=category]").val()
+  };
+
+  const response = await httpPost(
+    "//" + window.location.host + "/api/tasks",
+    requestData
+  );
+
+  window.location.reload();
+});
+
 const httpPost = async function (url, data) {
   console.log(url);
   console.log(data);
