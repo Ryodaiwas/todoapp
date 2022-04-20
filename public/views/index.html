@@ -170,7 +170,7 @@
         return `
           <li>
             <div class="row">
-              <div class="task_title col-6">${item.task_name}</div>
+              <div class="task_title${item.category_id} col-6" id="task_title">${item.task_name}</div>
               <div class="task_date col-3">${deadlineVal}</div>
               <button type="button" id="update-button" class="btn_up btn-primary" data-toggle="modal" data-target="#updateModal" data-id=${item.id}>更新</button>
               <button type="button" id="delete-button" class="btn_dlt btn-danger" data-toggle="modal" data-target="#deleteModal" data-id=${item.id} data-delete=${item.task_name}>削除</button>
@@ -185,7 +185,7 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">${item.task_name}</div>
+                  <div class="modal-body" id="deletetext">タスクタイトル</div>
                   <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
                   <button type="button" class="btn btn-primary" id="delete-button2" id="delete2">OK</button>
@@ -243,6 +243,9 @@
     //削除ボタン押下時
     $(document).on("click", "#delete-button", async function () {
       const id = $(this).data("id");
+      const taskName = $(this).data("delete");
+      document.getElementById("deletetext").innerText = `${taskName}`;
+      //中のOK押下時
       $("#delete-button2").on("click", async function () {
         //削除APIを実行
         const response = await httpDelete(

@@ -6,7 +6,7 @@ body {
 }
 
 a {
-  color: #ffbb00;
+  color: #00ff66;
 }
 
 .task_date {
@@ -16,8 +16,39 @@ a {
   font-size: 16px;
 }
 
-.task_title {
-  border-left: outset 15px #ffbb00;
+.task_title1 {
+  border-left: outset 15px;
+  border-left-color: #ffbb00;
+  background-color: white;
+  margin-bottom: 10px;
+  padding-right: 250px;
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+.task_title2 {
+  border-left: outset 15px;
+  border-left-color: #00a6ff;
+  background-color: white;
+  margin-bottom: 10px;
+  padding-right: 250px;
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+.task_title3 {
+  border-left: outset 15px;
+  border-left-color: #ff0044;
+  background-color: white;
+  margin-bottom: 10px;
+  padding-right: 250px;
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+.task_title4 {
+  border-left: outset 15px;
+  border-left-color: #00ff66;
   background-color: white;
   margin-bottom: 10px;
   padding-right: 250px;
