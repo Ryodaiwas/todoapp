@@ -18,10 +18,15 @@
   <div class="container">
     <!-- Content here -->
     <ul id="task-list">
-      <!-- 追加ボタン -->
       <div class="row">
+        <!-- 追加ボタン -->
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"
-          data-whatever="タスク登録">+ タスクを追加</button>
+          data-whatever="タスク登録">+ タスクを追加
+        </button>
+        <!--一括削除ボタン-->
+        <button type="button" class="btn btn-danger" id="alldelete" data-toggle="modal" data-target="#alldeleteModal"
+          data-whatever="タスク登録">- 完了済を削除
+        </button>
 
         <!--モーダル新規登録はじめ-->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -65,6 +70,26 @@
     </ul>
   </div>
   <!--モーダル新規登録おわり-->
+
+  <!--モーダル一括削除はじめ-->
+  <div class="modal fade" id="alldeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel2">完了済みのタスクをすべて削除しますか？</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-primary" id="alldelete-button">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--モーダル一括削除おわり-->
 
   <!--モーダル更新はじめ-->
   <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -137,13 +162,14 @@
   <script>
     $('#inputLimit').datepicker({
       format: 'yyyy/mm/dd',
-      language: 'ja'
+      language: 'ja',
+      autoclose: true,
     });
-  </script>
-  <script>
+
     $('#inputLimit2').datepicker({
       format: 'yyyy/mm/dd',
-      language: 'ja'
+      language: 'ja',
+      autoclose: true,
     });
   </script>
 
@@ -157,10 +183,8 @@
       const response = await httpGet(
         "//" + window.location.host + "/api/tasks"
       );
-
       const list = response.map((item) => {
-
-        //日付を xxxx-xx-xxに変換
+        //日付を xxxx年xx月xx日に変換
         const date = new Date(item.deadline);
         const year = date.getFullYear();
         const month = ("0" + (date.getMonth() + 1)).slice(-2);
@@ -170,8 +194,9 @@
         return `
           <li>
             <div class="row">
-              <div class="task_title${item.category_id} col-6" id="task_title">${item.task_name}</div>
-              <div class="task_date col-3">${deadlineVal}</div>
+              <button type="button" class="task_category${item.task_status}" id="taskstatus" data-id=${item.id}></button>
+              <div class="task_title${item.category_id} col-6">${item.task_name}</div>
+              <div class="task_date${item.category_id} col-3">${deadlineVal}</div>
               <button type="button" id="update-button" class="btn_up btn-primary" data-toggle="modal" data-target="#updateModal" data-id=${item.id}>更新</button>
               <button type="button" id="delete-button" class="btn_dlt btn-danger" data-toggle="modal" data-target="#deleteModal" data-id=${item.id} data-delete=${item.task_name}>削除</button>
             </div>
@@ -188,7 +213,7 @@
                   <div class="modal-body" id="deletetext">タスクタイトル</div>
                   <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-                  <button type="button" class="btn btn-primary" id="delete-button2" id="delete2">OK</button>
+                  <button type="button" class="btn btn-primary" id="delete-button2">OK</button>
                   </div>
                 </div>
               </div>
@@ -221,6 +246,41 @@
       $("[name=status]").val(response[0].task_status);
     });
 
+    //ステータスボタン押下時
+    $(document).on("click", "#taskstatus", async function () {
+      const id = $(this).data("id");
+      //現在のステータスをGETする
+      const response = await httpGet(
+        "//" + window.location.host + `/api/tasks/${id}`
+      );
+      //完了を未実施に、作業中を完了に、未実施を作業中に
+      if (response[0].task_status == 1) {
+        response[0].task_status = "3"
+      } else if (response[0].task_status == 2) {
+        response[0].task_status = "1"
+      } else if (response[0].task_status == 3) {
+        response[0].task_status = "2"
+      }
+      //ステータスだけ変える
+      const date = new Date(response[0].deadline);
+      const year = date.getFullYear();
+      const month = ("0" + (date.getMonth() + 1)).slice(-2);
+      const day = ("0" + date.getDate()).slice(-2);
+      const deadlineVal = `${year}-${month}-${day}`;
+      const requestData = {
+        taskName: response[0].task_name,
+        deadline: deadlineVal,
+        category: response[0].category_id,
+        status: response[0].task_status
+      };
+      //保存する
+      const response2 = await httpUpdate(
+        "//" + window.location.host + `/api/tasks/${id}`,
+        requestData
+      );
+      window.location.reload();
+    });
+
     //保存ボタン押下時
     $("#update-task").on("click", async function () {
       const id = $("[name=id]").val();
@@ -240,10 +300,33 @@
       window.location.reload();
     });
 
+    //完了済み削除ボタン押下時
+    $(document).on("click", "#alldelete", async function () {
+      const response = await httpGet(
+        "//" + window.location.host + "/api/tasks"
+      );
+      const stid = response.map((item) => {
+        if (item.task_status == 1) {
+          const id = `${item.id}`;
+          console.log(id);
+          $(document).on("click", "#alldelete-button", async function () {
+            const response = await httpDelete(
+              "//" + window.location.host + `/api/tasks/${id}`
+            );
+            //画面をリロード
+            window.location.reload();
+          })
+        } else {
+          console.log("対象外");
+        }
+      });
+    });
+
     //削除ボタン押下時
     $(document).on("click", "#delete-button", async function () {
       const id = $(this).data("id");
       const taskName = $(this).data("delete");
+      //削除するタスクタイトルに置き換え
       document.getElementById("deletetext").innerText = `${taskName}`;
       //中のOK押下時
       $("#delete-button2").on("click", async function () {

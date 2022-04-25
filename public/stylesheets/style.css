@@ -9,52 +9,122 @@ a {
   color: #00ff66;
 }
 
-.task_date {
-  background-color: white; 
-  margin-bottom: 10px; 
-  padding: 5px;
+.task_category1 {
+  background-color: #00ff66;
+  border: solid #00ff66;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+.task_category2 {
+  background-color: #ffbb00;
+  border: solid #ffbb00;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+.task_category3 {
+  background-color: #ff0044;
+  border: solid #ff0044;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+.task_category4 {
+  background-color: #00ff66;
+  border: solid #00ff66;
+  margin-bottom: 10px;
+  padding-top: 5px;
   font-size: 16px;
 }
 
 .task_title1 {
-  border-left: outset 15px;
-  border-left-color: #ffbb00;
-  background-color: white;
+  background-color: #fdefc7;
   margin-bottom: 10px;
   padding-right: 250px;
   padding-top: 5px;
   font-size: 16px;
+  border-bottom: solid 2px #ffbb00;
+  border-top: solid 2px #ffbb00;
+  border-left: solid 2px #ffbb00;
 }
 
 .task_title2 {
-  border-left: outset 15px;
-  border-left-color: #00a6ff;
-  background-color: white;
+  background-color: #cfeeff;
   margin-bottom: 10px;
   padding-right: 250px;
   padding-top: 5px;
   font-size: 16px;
+  border-bottom: solid 2px #00a6ff;
+  border-top: solid 2px #00a6ff;
+  border-left: solid 2px #00a6ff;
 }
 
 .task_title3 {
-  border-left: outset 15px;
-  border-left-color: #ff0044;
-  background-color: white;
+  background-color: #ffdde6;
   margin-bottom: 10px;
   padding-right: 250px;
   padding-top: 5px;
   font-size: 16px;
+  border-bottom: solid 2px #ff0044;
+  border-top: solid 2px #ff0044;
+  border-left: solid 2px #ff0044;
 }
 
 .task_title4 {
-  border-left: outset 15px;
-  border-left-color: #00ff66;
-  background-color: white;
+  background-color: #c0fdd7;
   margin-bottom: 10px;
   padding-right: 250px;
   padding-top: 5px;
   font-size: 16px;
+  border-bottom: solid 2px #00ff66;
+  border-top: solid 2px #00ff66;
+  border-left: solid 2px #00ff66;
 }
+
+.task_date1 {
+  background-color: #fdefc7; 
+  margin-bottom: 10px; 
+  padding: 5px;
+  font-size: 16px;
+  border-bottom: solid 2px #ffbb00;
+  border-top: solid 2px #ffbb00;
+  border-right: solid 2px #ffbb00;
+}
+
+.task_date2 {
+  background-color: #cfeeff; 
+  margin-bottom: 10px; 
+  padding: 5px;
+  font-size: 16px;
+  border-bottom: solid 2px #00a6ff;
+  border-top: solid 2px #00a6ff;
+  border-right: solid 2px #00a6ff;
+}
+
+.task_date3 {
+  background-color: #ffdde6; 
+  margin-bottom: 10px; 
+  padding: 5px;
+  font-size: 16px;
+  border-bottom: solid 2px #ff0044;
+  border-top: solid 2px #ff0044;
+  border-right: solid 2px #ff0044;
+}
+
+.task_date4 {
+  background-color: #c0fdd7; 
+  margin-bottom: 10px; 
+  padding: 5px;
+  font-size: 16px;
+  border-bottom: solid 2px #00ff66;
+  border-top: solid 2px #00ff66;
+  border-right: solid 2px #00ff66;
+}
+
 
 .btn { 
   margin-bottom: 10px; 
